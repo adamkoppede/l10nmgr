@@ -30,3 +30,13 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\Localizationtea
 ];
 
 $GLOBALS['TYPO3_CONF_VARS']['FE']['addRootLineFields'] .= ',l10nmgr_configuration,l10nmgr_configuration_next_level';
+
+call_user_func(static function (): void {
+    if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('container')) {
+        $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['l10nmgr']['additionalInlineTablesConfig']['tt_content'] ??= [];
+        $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['l10nmgr']['additionalInlineTablesConfig']['tt_content'][] = [
+            'parentTable' => 'tt_content',
+            'parentField' => 'tx_container_parent'
+        ];
+    }
+});
